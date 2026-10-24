@@ -1,22 +1,27 @@
-IT313 Enrollment
+IT313 Enrollment Eligibility Checker (TypeScript)
+
+Problem
+Computes each enrollee's average of prelim, midterm, and final, then marks them PASSING (75 or above) or PROBATION. This is a TypeScript rewrite of the Lab 2 JavaScript program so type bugs are caught before they reach a student record.
 
 Project Structure
-- gradesystem.js: module file used to for grade calculation and passing evaluation.
-- index.js: Main application for script handling for the asychronous exeuction.
-- package.json: Project metadata with ES module support.
+- gradesystem.ts: exports the EnrollmentStatus enum, computeAverage(), and the default getStatus().
+- index.ts: main script with the interfaces, generic groupBy(), simulated registrar API, and report output.
+- tsconfig.json: TypeScript config with "strict": true.
 
-Features Used
-- ES module: across the file I use the "import" and "export".
-- Asychronous Javascript: simulating a backend API call using "Promises" and "setTimeout".
-- Error Handling: execution wrapped in "try...catch" blocks.
-- ES6+ Syntax: using variables like ("const").
+TypeScript Concepts Used
+- Interfaces: Enrollee and EligibilityReport define the data shapes.
+- Optional property: remarks?: string is set only for PROBATION enrollees.
+- Enum: EnrollmentStatus replaces raw strings, so typos become compile errors.
+- Union type: batchId: string | number, narrowed with typeof before use.
+- Generics: groupBy<T>() groups reports by status for any array type.
+- Promises and async/await: getEnrollees() simulates an API call, wrapped in try...catch.
+- ES Modules: import/export between gradesystem.ts and index.ts.
 
-Array Method
-- ".map()' to build the processed student objects.
-- ".filter()' to separate passing students from those probation students.
-- ".reduce()' to accumulate and compute the total average class.
+Array Methods
+- .map() builds the EligibilityReport array.
+- .reduce() computes the class average.
 
-To run the program
-- ensure having node.js in your machine
-- open terminal and navigate the project
-- run application using: node index.js or '''bash
+To Run
+- Install dependencies: npm install
+- Check types (no output means no errors): npx tsc --noEmit
+- Run the program: npx ts-node index.ts
